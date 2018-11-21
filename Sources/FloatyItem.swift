@@ -90,7 +90,7 @@ open class FloatyItem: UIView {
   
   /**
    Item's title label position.
-   deafult is left
+   default is left
    */
   @objc open var titleLabelPosition: FloatyItemLabelPositionType = .left {
     didSet {
