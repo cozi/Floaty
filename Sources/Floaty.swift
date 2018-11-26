@@ -406,7 +406,8 @@ open class Floaty: UIView {
     if (items.count > 0) {
 			if !hasCancelButton, let item = items.first {
 				temporaryButtonImage = buttonImage
-				buttonImage = item.icon	// TODO: Animate this
+				buttonImage = item.icon?.withRenderingMode(.alwaysTemplate)	// TODO: Animate this
+				buttonImageView.tintColor = plusColor
 			}
 			
       setOverlayView()

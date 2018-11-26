@@ -55,6 +55,7 @@ class ViewController: UIViewController, FloatyDelegate {
       
     }
 		
+		floaty.plusColor = UIColor.white
 		floaty.hasShadow = false
 		
 		floaty.addItem("I got a handler", icon: UIImage(named: "icMap")) { item in
