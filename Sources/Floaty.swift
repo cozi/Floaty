@@ -179,6 +179,11 @@ open class Floaty: UIView {
   @objc open var itemShadowColor: UIColor = UIColor.black
 	
 	/**
+	Title Shadow color.
+	*/
+	@objc open var titleShadowColor: UIColor = UIColor.black
+	
+	/**
 	 Floaty's title label
 	 (when there is no cancel button)
 	 */
@@ -822,6 +827,11 @@ open class Floaty: UIView {
     circleLayer.shadowRadius = 2
     circleLayer.shadowColor = buttonShadowColor.cgColor
     circleLayer.shadowOpacity = 0.4
+		
+		titleLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
+		titleLabel.layer.shadowRadius = 2
+		titleLabel.layer.shadowColor = titleShadowColor.cgColor
+		titleLabel.layer.shadowOpacity = 0.4
   }
   
   fileprivate func plusBezierPath() -> UIBezierPath {

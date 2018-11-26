@@ -56,7 +56,7 @@ class ViewController: UIViewController, FloatyDelegate {
     }
 		
 		floaty.plusColor = UIColor.white
-		floaty.hasShadow = false
+		floaty.hasShadow = true
 		
 		floaty.hasCancelButton = false
 		
