@@ -179,9 +179,9 @@ open class Floaty: UIView {
   @objc open var itemShadowColor: UIColor = UIColor.black
 	
 	/**
-	Floaty's title label
-	(when there is no cancel button)
-	*/
+	 Floaty's title label
+	 (when there is no cancel button)
+	 */
 	var _titleLabel: UILabel? = nil
 	@objc open var titleLabel: UILabel {
 		get {
@@ -193,6 +193,15 @@ open class Floaty: UIView {
 				addSubview(_titleLabel!)
 			}
 			return _titleLabel!
+		}
+	}
+	
+	/**
+	 Title label color when there is no cancel button and more than one item.
+	 */
+	var titleColor: UIColor = UIColor.white {
+		didSet {
+			titleLabel.textColor = titleColor
 		}
 	}
 	
@@ -286,16 +295,6 @@ open class Floaty: UIView {
    An accessibility button for the main Fab Button
    */
   fileprivate var accessibilityView : UIView = UIView()
-	
-	
-	/**
-	 Title label color when there is no cancel button and more than one item.
-	*/
-	fileprivate var titleColor: UIColor = UIColor.white {
-		didSet {
-			titleLabel.textColor = titleColor
-		}
-	}
 	
 	fileprivate var temporaryButtonImage : UIImage? = nil
 	
