@@ -560,7 +560,7 @@ open class Floaty: UIView {
     item.actionButton = self
     items.append(item)
 		
-		if hasCancelButton || items.count > 0 {
+		if hasCancelButton || items.count > 1 {
 			addSubview(item)
 		}
   }

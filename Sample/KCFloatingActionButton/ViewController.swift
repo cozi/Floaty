@@ -58,6 +58,8 @@ class ViewController: UIViewController, FloatyDelegate {
 		floaty.plusColor = UIColor.white
 		floaty.hasShadow = false
 		
+		floaty.hasCancelButton = false
+		
 		floaty.addItem("I got a handler", icon: UIImage(named: "icMap")) { item in
 			let alert = UIAlertController(title: "Hey", message: "I'm hungry...", preferredStyle: .alert)
 			alert.addAction(UIAlertAction(title: "Me too", style: .default, handler: nil))
@@ -77,7 +79,6 @@ class ViewController: UIViewController, FloatyDelegate {
 //    floaty.paddingX = self.view.frame.width/2 - floaty.frame.width/2
     floaty.fabDelegate = self
 		
-		floaty.hasCancelButton = false
 		floaty.openAnimationType = .pop
 		floaty.friendlyTap = false
 		
