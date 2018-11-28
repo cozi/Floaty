@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23951ADA21ADEC0E00FD57F2 /* FloatyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23951AD921ADEC0E00FD57F2 /* FloatyLabel.swift */; };
 		B6640EA21BCEA8DA0099510D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6640EA11BCEA8DA0099510D /* LaunchScreen.xib */; };
 		B671D9341EB11BA5005EE7E1 /* Floaty.swift in Sources */ = {isa = PBXBuildFile; fileRef = B671D92E1EB11BA5005EE7E1 /* Floaty.swift */; };
 		B671D9351EB11BA5005EE7E1 /* FloatyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B671D92F1EB11BA5005EE7E1 /* FloatyDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23951AD921ADEC0E00FD57F2 /* FloatyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FloatyLabel.swift; path = ../../Sources/FloatyLabel.swift; sourceTree = "<group>"; };
 		B6640EA11BCEA8DA0099510D /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		B671D92E1EB11BA5005EE7E1 /* Floaty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Floaty.swift; path = ../../Sources/Floaty.swift; sourceTree = "<group>"; };
 		B671D92F1EB11BA5005EE7E1 /* FloatyDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FloatyDelegate.swift; path = ../../Sources/FloatyDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				B671D9311EB11BA5005EE7E1 /* FloatyManager.swift */,
 				B671D9321EB11BA5005EE7E1 /* FloatyViewController.swift */,
 				B671D9331EB11BA5005EE7E1 /* FloatyWindow.swift */,
+				23951AD921ADEC0E00FD57F2 /* FloatyLabel.swift */,
 			);
 			name = KCFloatingActionButton;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				B671D9381EB11BA5005EE7E1 /* FloatyViewController.swift in Sources */,
 				B671D9371EB11BA5005EE7E1 /* FloatyManager.swift in Sources */,
 				B6CC36181D91CBFB00D04C6C /* TableViewController.swift in Sources */,
+				23951ADA21ADEC0E00FD57F2 /* FloatyLabel.swift in Sources */,
 				B671D9351EB11BA5005EE7E1 /* FloatyDelegate.swift in Sources */,
 				B671D9361EB11BA5005EE7E1 /* FloatyItem.swift in Sources */,
 			);

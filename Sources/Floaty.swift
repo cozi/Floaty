@@ -158,7 +158,36 @@ open class Floaty: UIView {
    Child item's default title label color.
    */
   @IBInspectable
-  @objc open var itemTitleColor: UIColor = UIColor.white
+	@objc open var itemTitleColor: UIColor = UIColor.white {
+		didSet {
+			titleLabel.textColor = itemTitleColor
+		}
+	}
+	
+	/**
+	 Child item's default title label background color.
+	 Applies to Floaty's title label when hasCancelButton is false
+	 */
+	@IBInspectable
+	@objc open var itemTitleBackgroundColor: UIColor = UIColor.clear {
+		didSet {
+			titleLabel.backgroundColor = itemTitleBackgroundColor
+			let textInsets = (itemTitleBackgroundColor == UIColor.clear) ? UIEdgeInsets.zero : UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+			titleLabel.textInsets = textInsets
+		}
+	}
+	
+	fileprivate let itemTitleTextInsets: UIEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+	
+	/**
+	 Child item's default title label corner radius.
+	 */
+	@IBInspectable
+	@objc open var itemTitleCornerRadius: CGFloat = 5 {
+		didSet {
+			titleLabel.layer.cornerRadius = itemTitleCornerRadius
+		}
+	}
   
   /**
    Child item's image color
@@ -171,7 +200,7 @@ open class Floaty: UIView {
    */
   @IBInspectable
   @objc open var hasShadow: Bool = true
-  
+	
   /**
    Child item's default shadow color.
    */
@@ -187,26 +216,20 @@ open class Floaty: UIView {
 	 Floaty's title label
 	 (when there is no cancel button)
 	 */
-	var _titleLabel: UILabel? = nil
-	@objc open var titleLabel: UILabel {
+	var _titleLabel: FloatyLabel? = nil
+	@objc open var titleLabel: FloatyLabel {
 		get {
 			if _titleLabel == nil {
-				_titleLabel = UILabel()
-				_titleLabel?.textColor = titleColor
+				_titleLabel = FloatyLabel()
+				_titleLabel?.lineBreakMode = .byClipping
+				_titleLabel?.textColor = itemTitleColor
 				_titleLabel?.font = FloatyManager.defaultInstance().font
 				_titleLabel?.alpha = 0
+				_titleLabel?.layer.cornerRadius = itemTitleCornerRadius
+				_titleLabel?.clipsToBounds = true
 				addSubview(_titleLabel!)
 			}
 			return _titleLabel!
-		}
-	}
-	
-	/**
-	 Title label color when there is no cancel button and more than one item.
-	 */
-	var titleColor: UIColor = UIColor.white {
-		didSet {
-			titleLabel.textColor = titleColor
 		}
 	}
 	
@@ -417,8 +440,8 @@ open class Floaty: UIView {
       setOverlayView()
       self.superview?.insertSubview(overlayView, aboveSubview: self)
       self.superview?.bringSubviewToFront(self)
-      overlayView.addTarget(self, action: #selector(close), for: UIControl.Event.touchUpInside)
-      
+			
+			
       overlayViewDidCompleteOpenAnimation = false
 			
 			// Animate Floaty changing
@@ -439,6 +462,7 @@ open class Floaty: UIView {
 				completion: {(f) -> Void in
 					self.overlayViewDidCompleteOpenAnimation = true
 					animationGroup.leave()
+					self.superview?.bringSubviewToFront(self)
 				}
 			)
       
@@ -464,9 +488,9 @@ open class Floaty: UIView {
       self.fabDelegate?.floatyDidOpen?(self)
     }
     fabDelegate?.floatyOpened?(self)
-    closed = false
+		closed = false
   }
-  
+	
   /**
    Items close.
    */
@@ -476,9 +500,9 @@ open class Floaty: UIView {
     let animationGroup = DispatchGroup()
     
     if (items.count > 0) {
-			if !self.hasCancelButton {
+			if !hasCancelButton {
 				buttonImage = temporaryButtonImage	// TODO: Animate this
-				self.temporaryButtonImage = nil
+				temporaryButtonImage = nil
 			}
 			
       self.overlayView.removeTarget(self, action: #selector(close), for: UIControl.Event.touchUpInside)
@@ -527,7 +551,7 @@ open class Floaty: UIView {
       self.fabDelegate?.floatyDidClose?(self)
     }
     fabDelegate?.floatyClosed?(self)
-    closed = true
+		closed = true
   }
   
   /**
@@ -806,6 +830,7 @@ open class Floaty: UIView {
     overlayView.backgroundColor = overlayColor
     overlayView.alpha = 0
     overlayView.isUserInteractionEnabled = true
+		overlayView.addTarget(self, action: #selector(close), for: UIControl.Event.touchUpInside)
     
   }
   fileprivate func setOverlayFrame() {
@@ -852,6 +877,9 @@ open class Floaty: UIView {
     item.circleShadowColor = itemShadowColor
     item.titleShadowColor = itemShadowColor
     item.size = itemSize
+		item.titleLabel.layer.cornerRadius = itemTitleCornerRadius
+		item.titleLabel.backgroundColor = itemTitleBackgroundColor
+		if itemTitleBackgroundColor != UIColor.clear { item.titleLabel.textInsets = itemTitleTextInsets}
   }
   
   
@@ -1598,4 +1626,3 @@ extension Floaty {
     }
   }
 }
-

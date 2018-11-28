@@ -49,8 +49,8 @@ class ViewController: UIViewController, FloatyDelegate {
     item.buttonColor = UIColor.blue
     item.circleShadowColor = UIColor.red
     item.titleShadowColor = UIColor.blue
-    item.titleLabelPosition = .right
-    item.title = "titlePosition right"
+    item.titleLabelPosition = .left
+    item.title = "custom item"
     item.handler = { item in
       
     }
@@ -60,7 +60,10 @@ class ViewController: UIViewController, FloatyDelegate {
 		
 		floaty.hasCancelButton = false
 		
-		floaty.addItem("I got a handler", icon: UIImage(named: "icMap")) { item in
+		floaty.itemTitleBackgroundColor = UIColor.white
+		floaty.itemTitleColor = UIColor.black
+		
+		floaty.addItem("I've got a handler", icon: UIImage(named: "icMap")) { item in
 			let alert = UIAlertController(title: "Hey", message: "I'm hungry...", preferredStyle: .alert)
 			alert.addAction(UIAlertAction(title: "Me too", style: .default, handler: nil))
 			self.present(alert, animated: true, completion: nil)
@@ -74,7 +77,7 @@ class ViewController: UIViewController, FloatyDelegate {
 //      alert.addAction(UIAlertAction(title: "Me too", style: .default, handler: nil))
 //      self.present(alert, animated: true, completion: nil)
 //    }
-//    floaty.addItem(item: item)
+    floaty.addItem(item: item)
 		
 //    floaty.paddingX = self.view.frame.width/2 - floaty.frame.width/2
     floaty.fabDelegate = self

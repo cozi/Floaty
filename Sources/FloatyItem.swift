@@ -95,7 +95,7 @@ open class FloatyItem: UIView {
   @objc open var titleLabelPosition: FloatyItemLabelPositionType = .left {
     didSet {
       if(titleLabelPosition == .left) {
-        titleLabel.frame.origin.x = -titleLabel.frame.size.width - 10
+        titleLabel.frame.origin.x = -titleLabel.frame.size.width - 20
       } else { //titleLabel will be on right
         titleLabel.frame.origin.x = iconImageView.frame.origin.x + iconImageView.frame.size.width + 20
       }
@@ -105,13 +105,14 @@ open class FloatyItem: UIView {
   /**
    Item's title label.
    */
-  var _titleLabel: UILabel? = nil
-  @objc open var titleLabel: UILabel {
+  var _titleLabel: FloatyLabel? = nil
+  @objc open var titleLabel: FloatyLabel {
     get {
       if _titleLabel == nil {
-        _titleLabel = UILabel()
+        _titleLabel = FloatyLabel()
         _titleLabel?.textColor = titleColor
         _titleLabel?.font = FloatyManager.defaultInstance().font
+				_titleLabel?.clipsToBounds = true
         addSubview(_titleLabel!)
       }
       return _titleLabel!
