@@ -58,10 +58,10 @@ class ViewController: UIViewController, FloatyDelegate {
 		floaty.plusColor = UIColor.white
 		floaty.hasShadow = true
 		
-		floaty.hasCancelButton = false
-		
 		floaty.itemTitleBackgroundColor = UIColor.white
 		floaty.itemTitleColor = UIColor.black
+		
+		floaty.hasCancelButton = false
 		
 		floaty.addItem("I've got a handler", icon: UIImage(named: "icMap")) { item in
 			let alert = UIAlertController(title: "Hey", message: "I'm hungry...", preferredStyle: .alert)

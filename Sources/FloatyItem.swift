@@ -30,6 +30,13 @@ open class FloatyItem: UIView {
       self.setNeedsDisplay()
     }
   }
+	
+	@objc open var titlePadding: CGFloat = 0 {
+		didSet {
+			let tempTitle = title
+			title = tempTitle	// Reset the title spacing
+		}
+	}
   
   /**
    Button color.
@@ -94,11 +101,7 @@ open class FloatyItem: UIView {
    */
   @objc open var titleLabelPosition: FloatyItemLabelPositionType = .left {
     didSet {
-      if(titleLabelPosition == .left) {
-        titleLabel.frame.origin.x = -titleLabel.frame.size.width - 20
-      } else { //titleLabel will be on right
-        titleLabel.frame.origin.x = iconImageView.frame.origin.x + iconImageView.frame.size.width + 20
-      }
+      positionTitleLabel()
     }
   }
   
@@ -126,11 +129,7 @@ open class FloatyItem: UIView {
     didSet {
       titleLabel.text = title
       titleLabel.sizeToFit()
-      if(titleLabelPosition == .left) {
-        titleLabel.frame.origin.x = -titleLabel.frame.size.width - 10
-      } else { //titleLabel will be on right
-        titleLabel.frame.origin.x = iconImageView.frame.origin.x + iconImageView.frame.size.width + 20
-      }
+      positionTitleLabel()
       
       titleLabel.frame.origin.y = self.size/2-titleLabel.frame.size.height/2
       
@@ -251,6 +250,14 @@ open class FloatyItem: UIView {
     titleLabel.layer.shadowColor = titleShadowColor.cgColor
     titleLabel.layer.shadowOpacity = 0.4
   }
+	
+	fileprivate func positionTitleLabel() {
+		if (titleLabelPosition == .left) {
+			titleLabel.frame.origin.x = -titleLabel.frame.size.width - (10 + titlePadding)
+		} else {
+			titleLabel.frame.origin.x = iconImageView.frame.origin.x + iconImageView.frame.size.width + (20 + titlePadding)
+		}
+	}
   
   open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     if touches.count == 1 {

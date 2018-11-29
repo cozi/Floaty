@@ -78,6 +78,9 @@ open class Floaty: UIView {
 						addSubview(item)
 					}
 				}
+				for item in items {
+					item.titlePadding = hasCancelButton ? 0 : (size - item.size) / 2
+				}
 			}
 		}
 	}
@@ -240,11 +243,7 @@ open class Floaty: UIView {
 	*/
 	@objc open var titleLabelPosition: FloatyItemLabelPositionType = .left {
 		didSet {
-			if (titleLabelPosition == .left) {
-				titleLabel.frame.origin.x = -titleLabel.frame.size.width - 10
-			} else { //titleLabel will be on right
-				titleLabel.frame.origin.x = self.buttonImageView.frame.origin.x + self.size + 10
-			}
+			positionTitleLabel()
 		}
 	}
   
@@ -334,11 +333,7 @@ open class Floaty: UIView {
 		didSet {
 			titleLabel.text = title
 			titleLabel.sizeToFit()
-			if (titleLabelPosition == .left) {
-				titleLabel.frame.origin.x = -titleLabel.frame.size.width - 10
-			} else { // titleLabel will be on right
-				titleLabel.frame.origin.x = self.buttonImageView.frame.origin.x + self.size + 10
-			}
+			positionTitleLabel()
 			
 			titleLabel.frame.origin.y = self.size/2-titleLabel.frame.size.height/2
 			
@@ -586,6 +581,7 @@ open class Floaty: UIView {
     item.frame.origin = CGPoint(x: big/2-small/2, y: big/2-small/2)
     item.alpha = 0
     item.actionButton = self
+    item.titlePadding = hasCancelButton ? 0 : (size - item.size) / 2
     items.append(item)
 		
 		if hasCancelButton || items.count > 1 {
@@ -879,6 +875,7 @@ open class Floaty: UIView {
     item.size = itemSize
 		item.titleLabel.layer.cornerRadius = itemTitleCornerRadius
 		item.titleLabel.backgroundColor = itemTitleBackgroundColor
+		item.titlePadding = hasCancelButton ? 0 : (size - item.size) / 2
 		if itemTitleBackgroundColor != UIColor.clear { item.titleLabel.textInsets = itemTitleTextInsets}
   }
   
@@ -956,6 +953,14 @@ open class Floaty: UIView {
       item.frame.origin = CGPoint(x: big/2-small/2, y: big/2-small/2)
     }
   }
+	
+	fileprivate func positionTitleLabel() {
+		if (titleLabelPosition == .left) {
+			titleLabel.frame.origin.x = -titleLabel.frame.size.width - 10
+		} else { //titleLabel will be on right
+			titleLabel.frame.origin.x = self.buttonImageView.frame.origin.x + self.size + 10
+		}
+	}
   
   fileprivate func setObserver() {
     NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationDidChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
