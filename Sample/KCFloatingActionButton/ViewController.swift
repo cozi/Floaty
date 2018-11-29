@@ -14,15 +14,15 @@ class ViewController: UIViewController, FloatyDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-		
+    
     layoutFAB()
   }
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		
-		toggleCancelButton.setTitle(toggleCancelButonString(), for: .normal)
-	}
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    toggleCancelButton.setTitle(toggleCancelButonString(), for: .normal)
+  }
   
   @IBAction func endEditing() {
     view.endEditing(true)
@@ -36,14 +36,14 @@ class ViewController: UIViewController, FloatyDelegate {
     }
   }
   
-	@IBOutlet weak var toggleCancelButton: UIButton!
-	
-	@IBAction func toggleCancelButton(_ sender: Any) {
-		floaty.hasCancelButton = !floaty.hasCancelButton
-		toggleCancelButton.setTitle(toggleCancelButonString(), for: .normal)
-	}
-	
-	func layoutFAB() {
+  @IBOutlet weak var toggleCancelButton: UIButton!
+  
+  @IBAction func toggleCancelButton(_ sender: Any) {
+    floaty.hasCancelButton = !floaty.hasCancelButton
+    toggleCancelButton.setTitle(toggleCancelButonString(), for: .normal)
+  }
+  
+  func layoutFAB() {
     let item = FloatyItem()
     item.hasShadow = false
     item.buttonColor = UIColor.blue
@@ -54,23 +54,23 @@ class ViewController: UIViewController, FloatyDelegate {
     item.handler = { item in
  
     }
-		
-		floaty.plusColor = UIColor.white
-		floaty.hasShadow = true
-		
+    
+    floaty.plusColor = UIColor.white
+    floaty.hasShadow = true
+    
     floaty.itemTitleBackgroundColor = UIColor.white
     floaty.itemTitleColor = UIColor.black
-		
-		floaty.hasCancelButton = false
-		
-		floaty.addItem("I've got a handler", icon: UIImage(named: "icMap")) { item in
-			let alert = UIAlertController(title: "Hey", message: "I'm hungry...", preferredStyle: .alert)
-			alert.addAction(UIAlertAction(title: "Me too", style: .default, handler: nil))
-			self.present(alert, animated: true, completion: nil)
-		}
+    
+    floaty.hasCancelButton = false
+    
+    floaty.addItem("I've got a handler", icon: UIImage(named: "icMap")) { item in
+      let alert = UIAlertController(title: "Hey", message: "I'm hungry...", preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "Me too", style: .default, handler: nil))
+      self.present(alert, animated: true, completion: nil)
+    }
 
 
-		floaty.addItem("Second item", icon: UIImage(named: "icShare"))
+    floaty.addItem("Second item", icon: UIImage(named: "icShare"))
     floaty.addItem(title: "Third Item")
 //    floaty.addItem("I got a handler", icon: UIImage(named: "icMap")) { item in
 //      let alert = UIAlertController(title: "Hey", message: "I'm hungry...", preferredStyle: .alert)
@@ -78,13 +78,13 @@ class ViewController: UIViewController, FloatyDelegate {
 //      self.present(alert, animated: true, completion: nil)
 //    }
     floaty.addItem(item: item)
-		
+    
 //    floaty.paddingX = self.view.frame.width/2 - floaty.frame.width/2
     floaty.fabDelegate = self
-		
-		floaty.openAnimationType = .pop
-		floaty.friendlyTap = false
-		
+    
+    floaty.openAnimationType = .pop
+    floaty.friendlyTap = false
+    
     self.view.addSubview(floaty)
     
   }
@@ -105,21 +105,21 @@ class ViewController: UIViewController, FloatyDelegate {
   func floatyDidClose(_ floaty: Floaty) {
     print("Floaty Did Close")
   }
-	
-	func emptyFloatySelected(_ floaty: Floaty) {
-		print("Empty Floaty Selected")
-	}
+  
+  func emptyFloatySelected(_ floaty: Floaty) {
+    print("Empty Floaty Selected")
+  }
   
 }
 
 // Helpers
 
 extension ViewController {
-	func toggleCancelButonString() -> String {
-		if floaty.hasCancelButton {
-			return "Floaty uses a cancel button"
-		} else {
-			return "Floaty not using a cancel button"
-		}
-	}
+  func toggleCancelButonString() -> String {
+    if floaty.hasCancelButton {
+      return "Floaty uses a cancel button"
+    } else {
+      return "Floaty not using a cancel button"
+    }
+  }
 }

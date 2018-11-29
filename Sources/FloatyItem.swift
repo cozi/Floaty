@@ -30,13 +30,13 @@ open class FloatyItem: UIView {
       self.setNeedsDisplay()
     }
   }
-	
-	@objc open var titlePadding: CGFloat = 0 {
-		didSet {
-			let tempTitle = title
-			title = tempTitle	// Reset the title spacing
-		}
-	}
+  
+  @objc open var titlePadding: CGFloat = 0 {
+    didSet {
+      let tempTitle = title
+      title = tempTitle  // Reset the title spacing
+    }
+  }
   
   /**
    Button color.
@@ -115,7 +115,7 @@ open class FloatyItem: UIView {
         _titleLabel = FloatyLabel()
         _titleLabel?.textColor = titleColor
         _titleLabel?.font = FloatyManager.defaultInstance().font
-				_titleLabel?.clipsToBounds = true
+        _titleLabel?.clipsToBounds = true
         addSubview(_titleLabel!)
       }
       return _titleLabel!
@@ -134,9 +134,9 @@ open class FloatyItem: UIView {
       titleLabel.frame.origin.y = self.size/2-titleLabel.frame.size.height/2
       
       if FloatyManager.defaultInstance().rtlMode {
-        titleLabel.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
+        titleLabel.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
       }else {
-        titleLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0);
+        titleLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
       }
       
     }
@@ -263,14 +263,14 @@ open class FloatyItem: UIView {
       self.layer.addSublayer(shadowLayer)
     }
   }
-	
-	fileprivate func positionTitleLabel() {
-		if (titleLabelPosition == .left) {
-			titleLabel.frame.origin.x = -titleLabel.frame.size.width - (10 + titlePadding)
-		} else {
-			titleLabel.frame.origin.x = iconImageView.frame.origin.x + iconImageView.frame.size.width + (20 + titlePadding)
-		}
-	}
+  
+  fileprivate func positionTitleLabel() {
+    if (titleLabelPosition == .left) {
+      titleLabel.frame.origin.x = -titleLabel.frame.size.width - (10 + titlePadding)
+    } else {
+      titleLabel.frame.origin.x = iconImageView.frame.origin.x + iconImageView.frame.size.width + (20 + titlePadding)
+    }
+  }
   
   open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     if touches.count == 1 {

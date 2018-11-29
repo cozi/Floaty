@@ -63,27 +63,27 @@ open class Floaty: UIView {
    */
   @IBInspectable
   @objc open var autoCloseOnTap: Bool = true
-	
-	/**
-	 Show a cancel button
-	 */
-	@IBInspectable
-	@objc open var hasCancelButton: Bool = true {
-		didSet {
-			if items.count > 0 {
-				if !hasCancelButton {
-					items.first?.removeFromSuperview()
-				} else {
-					if let item = items.first {
-						addSubview(item)
-					}
-				}
-				for item in items {
-					item.titlePadding = hasCancelButton ? 0 : (size - item.size) / 2
-				}
-			}
-		}
-	}
+  
+  /**
+   Show a cancel button
+   */
+  @IBInspectable
+  @objc open var hasCancelButton: Bool = true {
+    didSet {
+      if items.count > 0 {
+        if !hasCancelButton {
+          items.first?.removeFromSuperview()
+        } else {
+          if let item = items.first {
+            addSubview(item)
+          }
+        }
+        for item in items {
+          item.titlePadding = hasCancelButton ? 0 : (size - item.size) / 2
+        }
+      }
+    }
+  }
   
   /**
    Degrees to rotate image
@@ -161,36 +161,36 @@ open class Floaty: UIView {
    Child item's default title label color.
    */
   @IBInspectable
-	@objc open var itemTitleColor: UIColor = UIColor.white {
-		didSet {
-			titleLabel.textColor = itemTitleColor
-		}
-	}
-	
-	/**
-	 Child item's default title label background color.
-	 Applies to Floaty's title label when hasCancelButton is false
-	 */
-	@IBInspectable
-	@objc open var itemTitleBackgroundColor: UIColor = UIColor.clear {
-		didSet {
-			titleLabel.backgroundColor = itemTitleBackgroundColor
-			let textInsets = (itemTitleBackgroundColor == UIColor.clear) ? UIEdgeInsets.zero : UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
-			titleLabel.textInsets = textInsets
-		}
-	}
-	
-	fileprivate let itemTitleTextInsets: UIEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
-	
-	/**
-	 Child item's default title label corner radius.
-	 */
-	@IBInspectable
-	@objc open var itemTitleCornerRadius: CGFloat = 5 {
-		didSet {
-			titleLabel.layer.cornerRadius = itemTitleCornerRadius
-		}
-	}
+  @objc open var itemTitleColor: UIColor = UIColor.white {
+    didSet {
+      titleLabel.textColor = itemTitleColor
+    }
+  }
+  
+  /**
+   Child item's default title label background color.
+   Applies to Floaty's title label when hasCancelButton is false
+   */
+  @IBInspectable
+  @objc open var itemTitleBackgroundColor: UIColor = UIColor.clear {
+    didSet {
+      titleLabel.backgroundColor = itemTitleBackgroundColor
+      let textInsets = (itemTitleBackgroundColor == UIColor.clear) ? UIEdgeInsets.zero : UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+      titleLabel.textInsets = textInsets
+    }
+  }
+  
+  fileprivate let itemTitleTextInsets: UIEdgeInsets = UIEdgeInsets(top: 3, left: 6, bottom: 3, right: 6)
+  
+  /**
+   Child item's default title label corner radius.
+   */
+  @IBInspectable
+  @objc open var itemTitleCornerRadius: CGFloat = 5 {
+    didSet {
+      titleLabel.layer.cornerRadius = itemTitleCornerRadius
+    }
+  }
   
   /**
    Child item's image color
@@ -203,49 +203,49 @@ open class Floaty: UIView {
    */
   @IBInspectable
   @objc open var hasShadow: Bool = true
-	
+  
   /**
    Child item's default shadow color.
    */
   @IBInspectable
   @objc open var itemShadowColor: UIColor = UIColor.black
-	
-	/**
-	Title Shadow color.
-	*/
-	@objc open var titleShadowColor: UIColor = UIColor.black
-	
-	/**
-	 Floaty's title label
-	 (when there is no cancel button)
-	 */
-	var _titleLabel: FloatyLabel? = nil
-	@objc open var titleLabel: FloatyLabel {
-		get {
-			if _titleLabel == nil {
-				_titleLabel = FloatyLabel()
-				_titleLabel?.lineBreakMode = .byClipping
-				_titleLabel?.textColor = itemTitleColor
-				_titleLabel?.font = FloatyManager.defaultInstance().font
-				_titleLabel?.alpha = 0
-				_titleLabel?.layer.cornerRadius = itemTitleCornerRadius
-				_titleLabel?.clipsToBounds = true
-				addSubview(_titleLabel!)
-			}
-			return _titleLabel!
-		}
-	}
-	
-	/**
-	Floaty's title label position.
-	deafult is left
-	Only relevant if there is no cancel button
-	*/
-	@objc open var titleLabelPosition: FloatyItemLabelPositionType = .left {
-		didSet {
-			positionTitleLabel()
-		}
-	}
+  
+  /**
+  Title Shadow color.
+  */
+  @objc open var titleShadowColor: UIColor = UIColor.black
+  
+  /**
+   Floaty's title label
+   (when there is no cancel button)
+   */
+  var _titleLabel: FloatyLabel? = nil
+  @objc open var titleLabel: FloatyLabel {
+    get {
+      if _titleLabel == nil {
+        _titleLabel = FloatyLabel()
+        _titleLabel?.lineBreakMode = .byClipping
+        _titleLabel?.textColor = itemTitleColor
+        _titleLabel?.font = FloatyManager.defaultInstance().font
+        _titleLabel?.alpha = 0
+        _titleLabel?.layer.cornerRadius = itemTitleCornerRadius
+        _titleLabel?.clipsToBounds = true
+        addSubview(_titleLabel!)
+      }
+      return _titleLabel!
+    }
+  }
+  
+  /**
+  Floaty's title label position.
+  deafult is left
+  Only relevant if there is no cancel button
+  */
+  @objc open var titleLabelPosition: FloatyItemLabelPositionType = .left {
+    didSet {
+      positionTitleLabel()
+    }
+  }
   
   /**
    
@@ -322,28 +322,28 @@ open class Floaty: UIView {
    An accessibility button for the main Fab Button
    */
   fileprivate var accessibilityView : UIView = UIView()
-	
-	fileprivate var temporaryButtonImage : UIImage? = nil
-	
-	/**
-	 Floaty's title.
-	 This is set from the first item if there is no cancel button
-	*/
-	fileprivate var title: String? = nil {
-		didSet {
-			titleLabel.text = title
-			titleLabel.sizeToFit()
-			positionTitleLabel()
-			
-			titleLabel.frame.origin.y = self.size/2-titleLabel.frame.size.height/2
-			
-			if FloatyManager.defaultInstance().rtlMode {
-				titleLabel.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
-			} else {
-				titleLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0);
-			}
-		}
-	}
+  
+  fileprivate var temporaryButtonImage : UIImage? = nil
+  
+  /**
+   Floaty's title.
+   This is set from the first item if there is no cancel button
+  */
+  fileprivate var title: String? = nil {
+    didSet {
+      titleLabel.text = title
+      titleLabel.sizeToFit()
+      positionTitleLabel()
+      
+      titleLabel.frame.origin.y = self.size/2-titleLabel.frame.size.height/2
+      
+      if FloatyManager.defaultInstance().rtlMode {
+        titleLabel.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+      } else {
+        titleLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+      }
+    }
+  }
   
   // MARK: - Initialize
   
@@ -426,40 +426,40 @@ open class Floaty: UIView {
     let animationGroup = DispatchGroup()
     
     if (items.count > 0) {
-			if !hasCancelButton, let item = items.first {
-				temporaryButtonImage = buttonImage
-				buttonImage = item.icon?.withRenderingMode(.alwaysTemplate)	// TODO: Animate this
-				buttonImageView.tintColor = plusColor
-			}
-			
+      if !hasCancelButton, let item = items.first {
+        temporaryButtonImage = buttonImage
+        buttonImage = item.icon?.withRenderingMode(.alwaysTemplate)  // TODO: Animate this
+        buttonImageView.tintColor = plusColor
+      }
+      
       setOverlayView()
       self.superview?.insertSubview(overlayView, aboveSubview: self)
       self.superview?.bringSubviewToFront(self)
-			
-			
+      
+      
       overlayViewDidCompleteOpenAnimation = false
-			
-			// Animate Floaty changing
+      
+      // Animate Floaty changing
       animationGroup.enter()
       UIView.animate(
-				withDuration: 0.3,
-				delay: 0,
-				usingSpringWithDamping: 0.55,
-				initialSpringVelocity: 0.3,
-				options: UIView.AnimationOptions(),
-				animations: { () -> Void in
-					if self.hasCancelButton {
-						self.plusLayer.transform = CATransform3DMakeRotation(self.degreesToRadians(self.rotationDegrees), 0.0, 0.0, 1.0)
-						self.buttonImageView.transform = CGAffineTransform(rotationAngle: self.degreesToRadians(self.rotationDegrees))
-					}
-					self.overlayView.alpha = 1
-				},
-				completion: {(f) -> Void in
-					self.overlayViewDidCompleteOpenAnimation = true
-					animationGroup.leave()
-					self.superview?.bringSubviewToFront(self)
-				}
-			)
+        withDuration: 0.3,
+        delay: 0,
+        usingSpringWithDamping: 0.55,
+        initialSpringVelocity: 0.3,
+        options: UIView.AnimationOptions(),
+        animations: { () -> Void in
+          if self.hasCancelButton {
+            self.plusLayer.transform = CATransform3DMakeRotation(self.degreesToRadians(self.rotationDegrees), 0.0, 0.0, 1.0)
+            self.buttonImageView.transform = CGAffineTransform(rotationAngle: self.degreesToRadians(self.rotationDegrees))
+          }
+          self.overlayView.alpha = 1
+        },
+        completion: {(f) -> Void in
+          self.overlayViewDidCompleteOpenAnimation = true
+          animationGroup.leave()
+          self.superview?.bringSubviewToFront(self)
+        }
+      )
       
       switch openAnimationType {
       case .pop:
@@ -476,55 +476,55 @@ open class Floaty: UIView {
         noneAnimationWithOpen()
       }
       
-      UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: items.first);
+      UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: items.first)
     }
     
     animationGroup.notify(queue: .main) {
       self.fabDelegate?.floatyDidOpen?(self)
     }
     fabDelegate?.floatyOpened?(self)
-		closed = false
+    closed = false
   }
-	
+  
   /**
    Items close.
    */
-	@objc public func close() {
+  @objc public func close() {
     fabDelegate?.floatyWillClose?(self)
 
     let animationGroup = DispatchGroup()
     
     if (items.count > 0) {
-			if !hasCancelButton {
-				buttonImage = temporaryButtonImage	// TODO: Animate this
-				temporaryButtonImage = nil
-			}
-			
+      if !hasCancelButton {
+        buttonImage = temporaryButtonImage  // TODO: Animate this
+        temporaryButtonImage = nil
+      }
+      
       self.overlayView.removeTarget(self, action: #selector(close), for: UIControl.Event.touchUpInside)
-			
-			// Animate Floaty changing
+      
+      // Animate Floaty changing
       animationGroup.enter()
       UIView.animate(
-				withDuration: 0.3,
-				delay: 0,
-				usingSpringWithDamping: 0.6,
-				initialSpringVelocity: 0.8,
-				options: [],
-				animations: { () -> Void in
-					if self.hasCancelButton {
-						self.plusLayer.transform = CATransform3DMakeRotation(self.degreesToRadians(0), 0.0, 0.0, 1.0)
-						self.buttonImageView.transform = CGAffineTransform(rotationAngle: self.degreesToRadians(0))
-					}
-					self.overlayView.alpha = 0
-				},
-				completion: {(f) -> Void in
-					if self.overlayViewDidCompleteOpenAnimation {
-						self.overlayView.removeFromSuperview()
-					}
-					animationGroup.leave()
-				}
-			)
-			
+        withDuration: 0.3,
+        delay: 0,
+        usingSpringWithDamping: 0.6,
+        initialSpringVelocity: 0.8,
+        options: [],
+        animations: { () -> Void in
+          if self.hasCancelButton {
+            self.plusLayer.transform = CATransform3DMakeRotation(self.degreesToRadians(0), 0.0, 0.0, 1.0)
+            self.buttonImageView.transform = CGAffineTransform(rotationAngle: self.degreesToRadians(0))
+          }
+          self.overlayView.alpha = 0
+        },
+        completion: {(f) -> Void in
+          if self.overlayViewDidCompleteOpenAnimation {
+            self.overlayView.removeFromSuperview()
+          }
+          animationGroup.leave()
+        }
+      )
+      
       switch openAnimationType {
       case .pop:
         popAnimationWithClose(group: animationGroup)
@@ -539,33 +539,33 @@ open class Floaty: UIView {
       case .none:
         noneAnimationWithClose()
       }
-      UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: self);
+      UIAccessibility.post(notification: UIAccessibility.Notification.layoutChanged, argument: self)
     }
     
     animationGroup.notify(queue: .main) {
       self.fabDelegate?.floatyDidClose?(self)
     }
     fabDelegate?.floatyClosed?(self)
-		closed = true
+    closed = true
   }
   
   /**
    Items open or close.
-	 Will fire the first item handler when there is no cancel button
+   Will fire the first item handler when there is no cancel button
    */
   @objc open func toggle() {
     if items.count > 0 {
       if closed == true {
-				if !hasCancelButton && items.count == 1, let item = items.first {
-					item.handler?(item)
-				} else {
-					open()
-				}
+        if !hasCancelButton && items.count == 1, let item = items.first {
+          item.handler?(item)
+        } else {
+          open()
+        }
       } else {
-				if !hasCancelButton, let item = items.first {
-					item.handler?(item)
-				}
-				close()
+        if !hasCancelButton, let item = items.first {
+          item.handler?(item)
+        }
+        close()
       }
     } else {
       fabDelegate?.emptyFloatySelected?(self)
@@ -583,10 +583,10 @@ open class Floaty: UIView {
     item.actionButton = self
     item.titlePadding = hasCancelButton ? 0 : (size - item.size) / 2
     items.append(item)
-		
-		if hasCancelButton || items.count > 1 {
-			addSubview(item)
-		}
+    
+    if hasCancelButton || items.count > 1 {
+      addSubview(item)
+    }
   }
   
   
@@ -826,7 +826,7 @@ open class Floaty: UIView {
     overlayView.backgroundColor = overlayColor
     overlayView.alpha = 0
     overlayView.isUserInteractionEnabled = true
-		overlayView.addTarget(self, action: #selector(close), for: UIControl.Event.touchUpInside)
+    overlayView.addTarget(self, action: #selector(close), for: UIControl.Event.touchUpInside)
     
   }
   fileprivate func setOverlayFrame() {
@@ -848,7 +848,7 @@ open class Floaty: UIView {
     circleLayer.shadowRadius = 2
     circleLayer.shadowColor = buttonShadowColor.cgColor
     circleLayer.shadowOpacity = 0.4
-		
+    
     if itemTitleBackgroundColor == UIColor.clear {
       titleLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
       titleLabel.layer.shadowRadius = 2
@@ -886,10 +886,10 @@ open class Floaty: UIView {
     item.circleShadowColor = itemShadowColor
     item.titleShadowColor = itemShadowColor
     item.size = itemSize
-		item.titleLabel.layer.cornerRadius = itemTitleCornerRadius
-		item.titleLabel.backgroundColor = itemTitleBackgroundColor
-		item.titlePadding = hasCancelButton ? 0 : (size - item.size) / 2
-		if itemTitleBackgroundColor != UIColor.clear { item.titleLabel.textInsets = itemTitleTextInsets}
+    item.titleLabel.layer.cornerRadius = itemTitleCornerRadius
+    item.titleLabel.backgroundColor = itemTitleBackgroundColor
+    item.titlePadding = hasCancelButton ? 0 : (size - item.size) / 2
+    if itemTitleBackgroundColor != UIColor.clear { item.titleLabel.textInsets = itemTitleTextInsets}
   }
   
   
@@ -897,10 +897,10 @@ open class Floaty: UIView {
     
     if FloatyManager.defaultInstance().rtlMode {
       setLeftBottomFrame(keyboardSize)
-      self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0);
+      self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
     }else {
       setRightBottomFrame(keyboardSize)
-      self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0);
+      self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
     }
   }
   
@@ -930,8 +930,8 @@ open class Floaty: UIView {
   
   fileprivate func setRightBottomFrame(_ keyboardSize: CGFloat = 0) {
     
-    var horizontalMargin = size;
-    var verticalMargin = size + keyboardSize;
+    var horizontalMargin = size
+    var verticalMargin = size + keyboardSize
     if #available(iOS 11, *) {
       horizontalMargin += safeAreaInsets.right
       verticalMargin += safeAreaInsets.bottom
@@ -966,14 +966,14 @@ open class Floaty: UIView {
       item.frame.origin = CGPoint(x: big/2-small/2, y: big/2-small/2)
     }
   }
-	
-	fileprivate func positionTitleLabel() {
-		if (titleLabelPosition == .left) {
-			titleLabel.frame.origin.x = -titleLabel.frame.size.width - 10
-		} else { //titleLabel will be on right
-			titleLabel.frame.origin.x = self.buttonImageView.frame.origin.x + self.size + 10
-		}
-	}
+  
+  fileprivate func positionTitleLabel() {
+    if (titleLabelPosition == .left) {
+      titleLabel.frame.origin.x = -titleLabel.frame.size.width - 10
+    } else { //titleLabel will be on right
+      titleLabel.frame.origin.x = self.buttonImageView.frame.origin.x + self.size + 10
+    }
+  }
   
   fileprivate func setObserver() {
     NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationDidChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
@@ -1079,19 +1079,19 @@ open class Floaty: UIView {
     }
     
     UIView.animate(
-			withDuration: 0.2,
-			delay: 0,
-			options: UIView.AnimationOptions(),
-			animations: {
-				self.frame = CGRect(
-					x: UIScreen.main.bounds.width-self.size - self.paddingX,
-					y: UIScreen.main.bounds.height-self.size - keyboardSize - self.paddingY,
-					width: self.size,
-					height: self.size
-				)
-			},
-			completion: nil
-		)
+      withDuration: 0.2,
+      delay: 0,
+      options: UIView.AnimationOptions(),
+      animations: {
+        self.frame = CGRect(
+          x: UIScreen.main.bounds.width-self.size - self.paddingX,
+          y: UIScreen.main.bounds.height-self.size - keyboardSize - self.paddingY,
+          width: self.size,
+          height: self.size
+        )
+      },
+      completion: nil
+    )
   }
   
   @objc internal func keyboardWillHide(_ notification: Notification) {
@@ -1100,18 +1100,18 @@ open class Floaty: UIView {
     }
     
     UIView.animate(
-			withDuration: 0.2,
-			delay: 0,
-			options: UIView.AnimationOptions(),
-			animations: {
-				if self.isCustomFrame == false {
-					self.setBottomFrameAccordingToRTL()
-				} else {
-					self.size = min(self.frame.size.width, self.frame.size.height)
-				}
-			},
-			completion: nil
-		)
+      withDuration: 0.2,
+      delay: 0,
+      options: UIView.AnimationOptions(),
+      animations: {
+        if self.isCustomFrame == false {
+          self.setBottomFrameAccordingToRTL()
+        } else {
+          self.size = min(self.frame.size.width, self.frame.size.height)
+        }
+      },
+      completion: nil
+    )
   }
 }
 
@@ -1125,37 +1125,37 @@ extension Floaty {
   fileprivate func popAnimationWithOpen(group: DispatchGroup) {
     var itemHeight: CGFloat = 0
     var delay = 0.0
-		
-		if !self.hasCancelButton, let item = items.first {
-			title = item.title
-			titleLabel.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
-			
-			group.enter()
-			UIView.animate(
-				withDuration: 0.3,
-				delay: delay,
-				usingSpringWithDamping: 0.55,
-				initialSpringVelocity: 0.3,
-				options: UIView.AnimationOptions(),
-				animations: { () -> Void in
-					self.titleLabel.layer.transform = CATransform3DMakeScale(1, 1, 1)
-					self.titleLabel.alpha = 1
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
-			delay += animationSpeed
-		}
-		
+    
+    if !self.hasCancelButton, let item = items.first {
+      title = item.title
+      titleLabel.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
+      
+      group.enter()
+      UIView.animate(
+        withDuration: 0.3,
+        delay: delay,
+        usingSpringWithDamping: 0.55,
+        initialSpringVelocity: 0.3,
+        options: UIView.AnimationOptions(),
+        animations: { () -> Void in
+          self.titleLabel.layer.transform = CATransform3DMakeScale(1, 1, 1)
+          self.titleLabel.alpha = 1
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
+      delay += animationSpeed
+    }
+    
     for (index, item) in items.enumerated() {
       if item.isHidden == true { continue }
-			
-			if !self.hasCancelButton && index == 0 {
-				delay += animationSpeed
-				continue
-			}
-			
+      
+      if !self.hasCancelButton && index == 0 {
+        delay += animationSpeed
+        continue
+      }
+      
       itemHeight += item.size + itemSpace
       item.layer.transform = CATransform3DIdentity
       let big = size > item.size ? size : item.size
@@ -1169,19 +1169,19 @@ extension Floaty {
       item.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
       group.enter()
       UIView.animate(
-				withDuration: 0.3,
-				delay: delay,
-				usingSpringWithDamping: 0.55,
-				initialSpringVelocity: 0.3,
-				options: UIView.AnimationOptions(),
-				animations: { () -> Void in
-					item.layer.transform = CATransform3DIdentity
-					item.alpha = 1
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.3,
+        delay: delay,
+        usingSpringWithDamping: 0.55,
+        initialSpringVelocity: 0.3,
+        options: UIView.AnimationOptions(),
+        animations: { () -> Void in
+          item.layer.transform = CATransform3DIdentity
+          item.alpha = 1
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
       
       delay += animationSpeed
     }
@@ -1189,47 +1189,47 @@ extension Floaty {
   
   fileprivate func popAnimationWithClose(group: DispatchGroup) {
     var delay = 0.0
-		
+    
     for (index, item) in items.reversed().enumerated() {
       if item.isHidden == true { continue }
-			
-			if !self.hasCancelButton && index == items.count - 1 {
-				delay += animationSpeed
-				continue
-			}
-			
+      
+      if !self.hasCancelButton && index == items.count - 1 {
+        delay += animationSpeed
+        continue
+      }
+      
       group.enter()
       UIView.animate(
-				withDuration: 0.15,
-				delay: delay,
-				options: [],
-				animations: { () -> Void in
-					item.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
-					item.alpha = 0
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.15,
+        delay: delay,
+        options: [],
+        animations: { () -> Void in
+          item.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
+          item.alpha = 0
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
       delay += animationSpeed
     }
-		
-		if !hasCancelButton  {
-			group.enter()
-			UIView.animate(
-				withDuration: 0.15,
-				delay: delay,
-				options: [],
-				animations: { () -> Void in
-					self.titleLabel.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
-					self.titleLabel.alpha = 0
-				},
-				completion: { _ in
-					self.title = nil
-					group.leave()
-				}
-			)
-		}
+    
+    if !hasCancelButton  {
+      group.enter()
+      UIView.animate(
+        withDuration: 0.15,
+        delay: delay,
+        options: [],
+        animations: { () -> Void in
+          self.titleLabel.layer.transform = CATransform3DMakeScale(0.4, 0.4, 1)
+          self.titleLabel.alpha = 0
+        },
+        completion: { _ in
+          self.title = nil
+          group.leave()
+        }
+      )
+    }
   }
   
   /**
@@ -1238,21 +1238,21 @@ extension Floaty {
   fileprivate func fadeAnimationWithOpen(group: DispatchGroup) {
     var itemHeight: CGFloat = 0
     var delay = 0.0
-		
-		if !hasCancelButton, let item = items.first {
-			title = item.title
-			animateTitleLabel(fadeIn: true, group: group)
-			delay += animationSpeed
-		}
-		
+    
+    if !hasCancelButton, let item = items.first {
+      title = item.title
+      animateTitleLabel(fadeIn: true, group: group)
+      delay += animationSpeed
+    }
+    
     for (index, item) in items.enumerated() {
       if item.isHidden == true { continue }
-			
-			if !self.hasCancelButton && index == 0 {
-				delay += animationSpeed
-				continue
-			}
-			
+      
+      if !self.hasCancelButton && index == 0 {
+        delay += animationSpeed
+        continue
+      }
+      
       itemHeight += item.size + itemSpace
       if verticalDirection == .up {
         item.frame.origin.y = -itemHeight
@@ -1261,49 +1261,49 @@ extension Floaty {
       }
       group.enter()
       UIView.animate(
-				withDuration: 0.4,
-				delay: delay,
-				options: [],
-				animations: { () -> Void in
-					item.alpha = 1
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.4,
+        delay: delay,
+        options: [],
+        animations: { () -> Void in
+          item.alpha = 1
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
       delay += animationSpeed * 2
     }
   }
   
   fileprivate func fadeAnimationWithClose(group: DispatchGroup) {
     var delay = 0.0
-		
+    
     for (index, item) in items.reversed().enumerated() {
       if item.isHidden == true { continue }
-			
-			if !self.hasCancelButton && index == items.count - 1 {
-				delay += animationSpeed
-				continue
-			}
-			
+      
+      if !self.hasCancelButton && index == items.count - 1 {
+        delay += animationSpeed
+        continue
+      }
+      
       group.enter()
       UIView.animate(
-				withDuration: 0.4,
-				delay: delay,
-				options: [],
-				animations: { () -> Void in
-					item.alpha = 0
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.4,
+        delay: delay,
+        options: [],
+        animations: { () -> Void in
+          item.alpha = 0
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
       delay += animationSpeed * 2
     }
-		
-		if !hasCancelButton {
-			animateTitleLabel(fadeIn: false, group: group, delay: delay)
-		}
+    
+    if !hasCancelButton {
+      animateTitleLabel(fadeIn: false, group: group, delay: delay)
+    }
   }
   
   /**
@@ -1312,16 +1312,16 @@ extension Floaty {
   fileprivate func slideLeftAnimationWithOpen(group: DispatchGroup) {
     var itemHeight: CGFloat = 0
     var delay = 0.0
-		
-		if !hasCancelButton, let item = items.first {
-			title = item.title
-			animateTitleLabel(fadeIn: true, group: group)
-		}
-		
+    
+    if !hasCancelButton, let item = items.first {
+      title = item.title
+      animateTitleLabel(fadeIn: true, group: group)
+    }
+    
     for (index, item) in items.enumerated() {
       if item.isHidden == true { continue }
-			if !hasCancelButton && index == 0 { continue }
-			
+      if !hasCancelButton && index == 0 { continue }
+      
       itemHeight += item.size + itemSpace
       item.frame.origin.x = UIScreen.main.bounds.size.width - frame.origin.x
       if verticalDirection == .up {
@@ -1329,22 +1329,22 @@ extension Floaty {
       } else {
         item.frame.origin.y = itemHeight
       }
-			
+      
       group.enter()
       UIView.animate(
-				withDuration: 0.3,
-				delay: delay,
-				usingSpringWithDamping: 0.55,
-				initialSpringVelocity: 0.3,
-				options: UIView.AnimationOptions(),
-				animations: { () -> Void in
-					item.frame.origin.x = self.size/2 - self.itemSize/2
-					item.alpha = 1
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.3,
+        delay: delay,
+        usingSpringWithDamping: 0.55,
+        initialSpringVelocity: 0.3,
+        options: UIView.AnimationOptions(),
+        animations: { () -> Void in
+          item.frame.origin.x = self.size/2 - self.itemSize/2
+          item.alpha = 1
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
       
       delay += animationSpeed
     }
@@ -1352,28 +1352,28 @@ extension Floaty {
   
   fileprivate func slideLeftAnimationWithClose(group: DispatchGroup) {
     var delay = 0.0
-		
-		if !hasCancelButton {
-			animateTitleLabel(fadeIn: false, group: group)
-		}
-		
+    
+    if !hasCancelButton {
+      animateTitleLabel(fadeIn: false, group: group)
+    }
+    
     for (index, item) in items.reversed().enumerated() {
       if item.isHidden == true { continue }
-			if !hasCancelButton && index == items.count - 1 { continue }
-			
+      if !hasCancelButton && index == items.count - 1 { continue }
+      
       group.enter()
       UIView.animate(
-				withDuration: 0.3,
-				delay: delay,
-				options: [],
-				animations: { () -> Void in
-					item.frame.origin.x = UIScreen.main.bounds.size.width - self.frame.origin.x
-					item.alpha = 0
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.3,
+        delay: delay,
+        options: [],
+        animations: { () -> Void in
+          item.frame.origin.x = UIScreen.main.bounds.size.width - self.frame.origin.x
+          item.alpha = 0
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
       delay += animationSpeed
     }
   }
@@ -1383,60 +1383,60 @@ extension Floaty {
    */
   fileprivate func slideUpAnimationWithOpen(group: DispatchGroup) {
     var itemHeight: CGFloat = 0
-		
-		if !hasCancelButton, let item = items.first {
-			title = item.title
-			animateTitleLabel(fadeIn: true, group: group)
-		}
-		
+    
+    if !hasCancelButton, let item = items.first {
+      title = item.title
+      animateTitleLabel(fadeIn: true, group: group)
+    }
+    
     for (index, item) in items.enumerated() {
       if item.isHidden == true { continue }
-			if !hasCancelButton && index == 0 { continue }
-			
+      if !hasCancelButton && index == 0 { continue }
+      
       if verticalDirection == .up {
         itemHeight += item.size + itemSpace
       } else {
         itemHeight -= item.size + itemSpace
       }
-			
+      
       group.enter()
       UIView.animate(
-				withDuration: 0.2,
-				delay: 0,
-				options: [],
-				animations: { () -> Void in
-					item.frame.origin.y = -itemHeight
-					item.alpha = 1
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.2,
+        delay: 0,
+        options: [],
+        animations: { () -> Void in
+          item.frame.origin.y = -itemHeight
+          item.alpha = 1
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
     }
   }
   
   fileprivate func slideUpAnimationWithClose(group: DispatchGroup) {
-		if !hasCancelButton {
-			animateTitleLabel(fadeIn: false, group: group)
-		}
-		
+    if !hasCancelButton {
+      animateTitleLabel(fadeIn: false, group: group)
+    }
+    
     for (index, item) in items.reversed().enumerated() {
       if item.isHidden == true { continue }
-			if !self.hasCancelButton && index == items.count - 1 { continue }
-			
+      if !self.hasCancelButton && index == items.count - 1 { continue }
+      
       group.enter()
       UIView.animate(
-				withDuration: 0.2,
-				delay: 0,
-				options: [],
-				animations: { () -> Void in
-					item.frame.origin.y = 0
-					item.alpha = 0
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.2,
+        delay: 0,
+        options: [],
+        animations: { () -> Void in
+          item.frame.origin.y = 0
+          item.alpha = 0
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
     }
   }
   
@@ -1449,59 +1449,59 @@ extension Floaty {
     if self.size > self.itemSize && verticalDirection == .down {
       itemHeight = self.size - self.itemSize
     }
-		
-		if !hasCancelButton, let item = items.first {
-			title = item.title
-			animateTitleLabel(fadeIn: true, group: group)
-		}
+    
+    if !hasCancelButton, let item = items.first {
+      title = item.title
+      animateTitleLabel(fadeIn: true, group: group)
+    }
     
     for (index, item) in items.enumerated() {
       if item.isHidden == true { continue }
-			if !self.hasCancelButton && index == 0 { continue }
-			
+      if !self.hasCancelButton && index == 0 { continue }
+      
       if verticalDirection == .up {
         itemHeight -= item.size + itemSpace
       } else {
         itemHeight += item.size + itemSpace
       }
-			
+      
       group.enter()
       UIView.animate(
-				withDuration: 0.2,
-				delay: 0,
-				options: [],
-				animations: { () -> Void in
-					item.frame.origin.y = itemHeight
-					item.alpha = 1
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.2,
+        delay: 0,
+        options: [],
+        animations: { () -> Void in
+          item.frame.origin.y = itemHeight
+          item.alpha = 1
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
     }
   }
   
   fileprivate func slideDownAnimationWithClose(group: DispatchGroup) {
-		if !hasCancelButton {
-			animateTitleLabel(fadeIn: false, group: group)
-		}
-		
+    if !hasCancelButton {
+      animateTitleLabel(fadeIn: false, group: group)
+    }
+    
     for (index, item) in items.reversed().enumerated() {
       if item.isHidden == true { continue }
-			if !self.hasCancelButton && index == items.count - 1 { continue }
-			
+      if !self.hasCancelButton && index == items.count - 1 { continue }
+      
       group.enter()
       UIView.animate(
-				withDuration: 0.2,
-				delay: 0, options: [],
-				animations: { () -> Void in
-					item.frame.origin.y = 0
-					item.alpha = 0
-				},
-				completion: { _ in
-					group.leave()
-				}
-			)
+        withDuration: 0.2,
+        delay: 0, options: [],
+        animations: { () -> Void in
+          item.frame.origin.y = 0
+          item.alpha = 0
+        },
+        completion: { _ in
+          group.leave()
+        }
+      )
     }
   }
   
@@ -1510,16 +1510,16 @@ extension Floaty {
    */
   fileprivate func noneAnimationWithOpen() {
     var itemHeight: CGFloat = 0
-		
-		if !hasCancelButton, let item = items.first {
-			title = item.title
-			titleLabel.alpha = 1
-		}
-		
+    
+    if !hasCancelButton, let item = items.first {
+      title = item.title
+      titleLabel.alpha = 1
+    }
+    
     for (index, item) in items.enumerated() {
       if item.isHidden == true { continue }
-			if !self.hasCancelButton && index == 0 { continue }
-			
+      if !self.hasCancelButton && index == 0 { continue }
+      
       if verticalDirection == .up {
         itemHeight += item.size + itemSpace
       } else {
@@ -1531,37 +1531,37 @@ extension Floaty {
   }
   
   fileprivate func noneAnimationWithClose() {
-		if !hasCancelButton {
-			titleLabel.alpha = 0
-		}
-		
+    if !hasCancelButton {
+      titleLabel.alpha = 0
+    }
+    
     for (index, item) in items.reversed().enumerated() {
       if item.isHidden == true { continue }
-			if !self.hasCancelButton && index == items.count - 1 { continue }
-			
+      if !self.hasCancelButton && index == items.count - 1 { continue }
+      
       item.frame.origin.y = 0
       item.alpha = 0
     }
   }
-	
-	/**
-	 Animation Helpers
-	 */
-	
-	fileprivate func animateTitleLabel(fadeIn: Bool, group: DispatchGroup, delay: TimeInterval = 0) {
-		group.enter()
-		UIView.animate(
-			withDuration: 0.2,
-			delay: delay,
-			options: [],
-			animations: { () -> Void in
-				self.titleLabel.alpha = fadeIn ? 1 : 0
-			},
-			completion: { _ in
-				group.leave()
-			}
-		)
-	}
+  
+  /**
+   Animation Helpers
+   */
+  
+  fileprivate func animateTitleLabel(fadeIn: Bool, group: DispatchGroup, delay: TimeInterval = 0) {
+    group.enter()
+    UIView.animate(
+      withDuration: 0.2,
+      delay: delay,
+      options: [],
+      animations: { () -> Void in
+        self.titleLabel.alpha = fadeIn ? 1 : 0
+      },
+      completion: { _ in
+        group.leave()
+      }
+    )
+  }
 }
 
 /**
@@ -1594,7 +1594,7 @@ extension UIView {
 // MARK: - Accessibility Handling
 extension Floaty {
   open override func layoutSubviews() {
-    super.layoutSubviews();
+    super.layoutSubviews()
     accessibilityView.frame = CGRect(x: 0, y: 0, width: size, height: size)
   }
   
