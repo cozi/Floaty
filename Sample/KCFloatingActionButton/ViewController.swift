@@ -52,14 +52,14 @@ class ViewController: UIViewController, FloatyDelegate {
     item.titleLabelPosition = .left
     item.title = "custom item"
     item.handler = { item in
-      
+ 
     }
 		
 		floaty.plusColor = UIColor.white
 		floaty.hasShadow = true
 		
-		floaty.itemTitleBackgroundColor = UIColor.white
-		floaty.itemTitleColor = UIColor.black
+    floaty.itemTitleBackgroundColor = UIColor.white
+    floaty.itemTitleColor = UIColor.black
 		
 		floaty.hasCancelButton = false
 		

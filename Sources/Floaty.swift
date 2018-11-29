@@ -849,10 +849,23 @@ open class Floaty: UIView {
     circleLayer.shadowColor = buttonShadowColor.cgColor
     circleLayer.shadowOpacity = 0.4
 		
-		titleLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
-		titleLabel.layer.shadowRadius = 2
-		titleLabel.layer.shadowColor = titleShadowColor.cgColor
-		titleLabel.layer.shadowOpacity = 0.4
+    if itemTitleBackgroundColor == UIColor.clear {
+      titleLabel.layer.shadowOffset = CGSize(width: 1, height: 1)
+      titleLabel.layer.shadowRadius = 2
+      titleLabel.layer.shadowColor = titleShadowColor.cgColor
+      titleLabel.layer.shadowOpacity = 0.4
+    } else {
+      let shadowLayer = CALayer()
+      shadowLayer.frame = titleLabel.bounds
+      shadowLayer.cornerRadius = 5
+      shadowLayer.backgroundColor = UIColor.clear.cgColor
+      shadowLayer.shadowColor = titleShadowColor.cgColor
+      shadowLayer.shadowOpacity = 0.4
+      shadowLayer.shadowRadius = 4
+      shadowLayer.shadowOffset = CGSize(width: 0, height: 3)
+      shadowLayer.addSublayer(titleLabel.layer)
+      self.layer.addSublayer(shadowLayer)
+    }
   }
   
   fileprivate func plusBezierPath() -> UIBezierPath {
