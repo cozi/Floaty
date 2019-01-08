@@ -997,7 +997,7 @@ open class Floaty: UIView {
   @objc open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesEnded(touches, with: event)
     tintLayer.removeFromSuperlayer()
-    if isTouched(touches) {
+    if !hasCancelButton || isTouched(touches) {
       toggle()
     }
   }
