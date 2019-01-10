@@ -135,10 +135,9 @@ open class FloatyItem: UIView {
       
       if FloatyManager.defaultInstance().rtlMode {
         titleLabel.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-      }else {
+      } else {
         titleLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
       }
-      
     }
   }
   
@@ -265,7 +264,7 @@ open class FloatyItem: UIView {
   }
   
   fileprivate func positionTitleLabel() {
-    if (titleLabelPosition == .left) {
+    if titleLabelPosition == .left {
       titleLabel.frame.origin.x = -titleLabel.frame.size.width - (10 + titlePadding)
     } else {
       titleLabel.frame.origin.x = iconImageView.frame.origin.x + iconImageView.frame.size.width + (20 + titlePadding)

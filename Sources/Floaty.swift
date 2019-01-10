@@ -217,7 +217,7 @@ open class Floaty: UIView {
   
   /**
    Floaty's title label
-   (when there is no cancel button)
+   Only appears when hasCancelButton is false
    */
   var _titleLabel: FloatyLabel? = nil
   @objc open var titleLabel: FloatyLabel {
@@ -239,7 +239,7 @@ open class Floaty: UIView {
   /**
   Floaty's title label position.
   deafult is left
-  Only relevant if there is no cancel button
+  Only appears when hasCancelButton is false
   */
   @objc open var titleLabelPosition: FloatyItemLabelPositionType = .left {
     didSet {
@@ -327,7 +327,7 @@ open class Floaty: UIView {
   
   /**
    Floaty's title.
-   This is set from the first item if there is no cancel button
+   This is set from the first item if when hasCancelButton is false
   */
   fileprivate var title: String? = nil {
     didSet {
@@ -335,7 +335,7 @@ open class Floaty: UIView {
       titleLabel.sizeToFit()
       positionTitleLabel()
       
-      titleLabel.frame.origin.y = self.size/2-titleLabel.frame.size.height/2
+      titleLabel.frame.origin.y = self.size / 2 - titleLabel.frame.size.height / 2
       
       if FloatyManager.defaultInstance().rtlMode {
         titleLabel.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
@@ -425,7 +425,7 @@ open class Floaty: UIView {
     fabDelegate?.floatyWillOpen?(self)
     let animationGroup = DispatchGroup()
     
-    if (items.count > 0) {
+    if items.count > 0 {
       if !hasCancelButton, let item = items.first {
         temporaryButtonImage = buttonImage
         buttonImage = item.icon?.withRenderingMode(.alwaysTemplate)  // TODO: Animate this
@@ -494,7 +494,7 @@ open class Floaty: UIView {
 
     let animationGroup = DispatchGroup()
     
-    if (items.count > 0) {
+    if items.count > 0 {
       if !hasCancelButton {
         buttonImage = temporaryButtonImage  // TODO: Animate this
         temporaryButtonImage = nil
@@ -898,7 +898,7 @@ open class Floaty: UIView {
     if FloatyManager.defaultInstance().rtlMode {
       setLeftBottomFrame(keyboardSize)
       self.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-    }else {
+    } else {
       setRightBottomFrame(keyboardSize)
       self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
     }
@@ -968,7 +968,7 @@ open class Floaty: UIView {
   }
   
   fileprivate func positionTitleLabel() {
-    if (titleLabelPosition == .left) {
+    if titleLabelPosition == .left {
       titleLabel.frame.origin.x = -titleLabel.frame.size.width - 10
     } else { //titleLabel will be on right
       titleLabel.frame.origin.x = self.buttonImageView.frame.origin.x + self.size + 10
@@ -997,6 +997,7 @@ open class Floaty: UIView {
   @objc open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     super.touchesEnded(touches, with: event)
     tintLayer.removeFromSuperlayer()
+    // When hasCancelButton is false, prevent the animation from blocking a second tap on the primary button
     if !hasCancelButton || isTouched(touches) {
       toggle()
     }
@@ -1338,7 +1339,7 @@ extension Floaty {
         initialSpringVelocity: 0.3,
         options: UIView.AnimationOptions(),
         animations: { () -> Void in
-          item.frame.origin.x = self.size/2 - self.itemSize/2
+          item.frame.origin.x = self.size / 2 - self.itemSize / 2
           item.alpha = 1
         },
         completion: { _ in
@@ -1575,7 +1576,7 @@ extension Floaty {
 
 extension UIView {
   fileprivate func getAllSuperviews() -> [UIView]? {
-    if (self.superview == nil) {
+    if self.superview == nil {
       return nil
     }
     
@@ -1633,7 +1634,7 @@ extension Floaty {
   
   open override var accessibilityElements: [Any]? {
     get {
-      if (closed) {
+      if closed {
         return [accessibilityView]
       } else {
         return [accessibilityView] + items
